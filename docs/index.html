@@ -42,31 +42,68 @@
   <!-- 功能架构图 -->
   <div class="card">
     <h2>一、功能架构图</h2>
-    <p style="color:#999;font-size:0.9em;margin-bottom:15px;">黄底 = 本人负责模块</p>
+    <p style="color:#999;font-size:0.9em;margin-bottom:15px;">黄底 = 本人负责模块  |  箭头 = 模块间调用/依赖关系</p>
     <style>
-      .tree { font-family: "SF Mono", "Menlo", "Consolas", monospace; font-size: 0.95em; line-height: 2; padding: 20px; background: #fafbfc; border-radius: 8px; border: 1px solid #e8ecf4; }
-      .tree .hl { background: #fef3c7; display: inline-block; padding: 0 4px; border-radius: 3px; }
+      .block-diagram { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; padding:20px 0; }
+      .func-box { border:2px solid #bbb; border-radius:10px; background:#fafbfc; padding:0; min-width:180px; }
+      .func-box .title { padding:10px 16px; font-weight:700; font-size:0.95em; text-align:center; border-radius:8px 8px 0 0; }
+      .func-box ul { list-style:none; padding:10px 16px; margin:0; font-size:0.82em; color:#555; }
+      .func-box li { padding:3px 0; }
+      .leader-box { border-color:#f9ab00; background:#fffdf5; }
+      .leader-box .title { background:#fef3c7; }
+      .arrow { font-size:1.5em; color:#999; font-weight:bold; }
+      .arrow-label { font-size:0.75em; color:#999; text-align:center; }
+      .arrow-group { display:flex; flex-direction:column; align-items:center; }
     </style>
-    <div class="tree">
-      课堂点名系统<br>
-      ├─ 学生管理<br>
-      │  ├─ 单个添加学生<br>
-      │  ├─ 批量添加学生<br>
-      │  ├─ Excel表格导入 / 导出<br>
-      │  ├─ 搜索过滤<br>
-      │  └─ 请假 / 销假管理<br>
-      <span class="hl">├─ 课堂点名（本人负责）<br></span>
-      <span class="hl">│  ├─ 加权随机点名算法<br></span>
-      <span class="hl">│  ├─ 救场机制（连续未答→高回答率选取）<br></span>
-      <span class="hl">│  ├─ 题目太难提示<br></span>
-      <span class="hl">│  ├─ 继续提问流程<br></span>
-      <span class="hl">│  ├─ 请假学生自动排除<br></span>
-      <span class="hl">│  └─ 课程设置 / 重置本轮<br></span>
-      └─ 数据统计<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;├─ 汇总卡片（总数/点名/答出/成功率）<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;├─ 学生排名表<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;└─ 点名频次分布
+    <div class="block-diagram">
+      <!-- 学生管理 -->
+      <div class="func-box">
+        <div class="title" style="background:#e8f0fe;color:#1a56db;">学生管理</div>
+        <ul>
+          <li>单个 / 批量添加</li>
+          <li>Excel导入 / 导出</li>
+          <li>搜索过滤</li>
+          <li>请假 / 销假</li>
+        </ul>
+      </div>
+      <!-- 箭头1 -->
+      <div class="arrow-group">
+        <div class="arrow-label">提供学生数据</div>
+        <div class="arrow">──────→</div>
+        <div class="arrow-label">读取点名记录</div>
+        <div class="arrow">←──────</div>
+      </div>
+      <!-- 课堂点名（本人负责） -->
+      <div class="func-box leader-box">
+        <div class="title">🎯 课堂点名（本人负责）</div>
+        <ul>
+          <li>加权随机算法</li>
+          <li>救场机制</li>
+          <li>题目太难提示</li>
+          <li>继续提问流程</li>
+          <li>请假自动排除</li>
+          <li>课程 / 重置本轮</li>
+        </ul>
+      </div>
+      <!-- 箭头2 -->
+      <div class="arrow-group">
+        <div class="arrow-label">提供点名记录</div>
+        <div class="arrow">──────→</div>
+      </div>
+      <!-- 数据统计 -->
+      <div class="func-box">
+        <div class="title" style="background:#e6f4ea;color:#1e4620;">数据统计</div>
+        <ul>
+          <li>汇总卡片</li>
+          <li>学生排名表</li>
+          <li>点名频次分布</li>
+        </ul>
+      </div>
     </div>
+
+    <p style="text-align:center;color:#888;font-size:0.8em;margin-top:10px;">
+      数据流向：学生管理 ──学生数据──→ 课堂点名 ──点名记录──→ 数据统计
+    </p>
   </div>
 
   <!-- 任务简介 -->
