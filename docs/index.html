@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课堂点名系统 - 核心点名模块</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #333; line-height: 1.8; }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+  header { background: linear-gradient(135deg, #4361ee, #3a0ca3); color: #fff; text-align: center; padding: 60px 20px; }
+  header h1 { font-size: 2.2em; margin-bottom: 10px; }
+  header p { font-size: 1.1em; opacity: 0.85; }
+  .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 35px; margin: 25px 0; }
+  .card h2 { font-size: 1.5em; color: #4361ee; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8ecf4; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+  th, td { border: 1px solid #e0e4ea; padding: 10px 14px; text-align: left; }
+  th { background: #f0f3f9; font-weight: 600; }
+  .arch-box { display:inline-block; padding:12px 22px; border-radius:8px; margin:5px; font-size:0.9em; font-weight:600; }
+  .arch-view { background:#e8f0fe; border:2px solid #4285f4; color:#1a56db; }
+  .arch-service { background:#fef7e0; border:2px solid #f9ab00; color:#5f3e00; }
+  .arch-util { background:#fce8e6; border:2px solid #ea4335; color:#8b1a10; }
+  .arch-model { background:#f3e8fd; border:2px solid #9334e6; color:#3e1763; }
+  .arch-row { margin:12px 0; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; }
+  .arch-label { font-size:0.85em; color:#999; text-align:center; margin:15px 0 5px; }
+  code { background: #f0f3f9; padding: 2px 7px; border-radius: 4px; font-size: 0.9em; }
+  .repo-link a { color: #4361ee; text-decoration: none; }
+  .repo-link a:hover { text-decoration: underline; }
+  footer { text-align: center; padding: 25px; color: #999; font-size: 0.85em; }
+  @media (max-width: 600px) { header { padding: 35px 15px; } header h1 { font-size: 1.5em; } .card { padding: 20px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>课堂点名系统 - 核心点名模块</h1>
+  <p>基于有状态的课堂点名系统 · 个人任务博客</p>
+</header>
+
+<div class="container">
+
+  <!-- 任务简介 -->
+  <div class="card">
+    <h2>一、负责任务概述</h2>
+    <p>
+      本人在项目中担任<strong>组长</strong>，负责<strong>核心点名逻辑与项目架构</strong>。
+      主要任务包括：设计学生与点名记录数据模型、实现加权随机点名算法、开发点名服务（含救场机制与状态管理）、构建主窗口框架与点名交互界面、Git仓库管理与团队协作。
+    </p>
+  </div>
+
+  <!-- 完成的任务 -->
+  <div class="card">
+    <h2>二、完成的任务与功能</h2>
+    <table>
+      <tr><th style="width:5%">#</th><th style="width:30%">功能</th><th>描述</th></tr>
+      <tr>
+        <td>1</td>
+        <td>加权随机点名算法</td>
+        <td>实现累积权重法加权随机选择，权重 = 100/(被点名次数+1)，被点名越少概率越高，确保机会均等</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>救场与题目太难机制</td>
+        <td>连续3人未答出 → 从高回答率学生中选取；救场3连败 → 提示"题目太难，建议老师讲解"</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>继续提问与排除机制</td>
+        <td>答出后弹窗问是否继续，继续则排除已答出+请假学生，结束则重置本轮</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>点名交互界面</td>
+        <td>完整交互流程：课程设置→点名→答出/未答出→弹窗→继续/结束，右侧点名历史记录</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>MVC架构设计</td>
+        <td>model(实体)/service(业务)/view(界面)三层分离，包名rollcall，采用DAO模式与策略模式</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Git与团队管理</td>
+        <td>GitHub仓库创建、Issues任务跟踪、团队博客搭建、组员Git培训</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 文件说明 -->
+  <div class="card">
+    <h2>三、负责文件清单</h2>
+    <table>
+      <tr><th style="width:5%">#</th><th style="width:35%">文件</th><th>说明</th></tr>
+      <tr><td>1</td><td><code>model/Student.java</code></td><td>学生实体模型（序列化、权重计算、请假状态）</td></tr>
+      <tr><td>2</td><td><code>model/RollCallRecord.java</code></td><td>点名记录模型（时间格式化）</td></tr>
+      <tr><td>3</td><td><code>service/RollCallService.java</code></td><td>核心点名服务：加权选择、救场机制、状态管理、继续提问</td></tr>
+      <tr><td>4</td><td><code>util/WeightedRandom.java</code></td><td>加权随机算法：累积权重法select()、救场selectTop()</td></tr>
+      <tr><td>5</td><td><code>view/MainFrame.java</code></td><td>主窗口：JTabbedPane组织功能面板</td></tr>
+      <tr><td>6</td><td><code>view/RollCallPanel.java</code></td><td>点名交互界面：完整交互流程与状态更新</td></tr>
+    </table>
+  </div>
+
+  <!-- 技术详解 -->
+  <div class="card">
+    <h2>四、核心技术详解</h2>
+
+    <h3>4.1 加权随机算法</h3>
+    <p>采用<strong>累积权重法</strong>：计算所有学生权重之和 → 生成[0, 总和)随机数 → 从第一个学生开始累加权重，首次超过随机数时选中。权重公式：<code>100 / (被点名次数 + 1)</code>，确保被点名次数越少的学生被选中概率越高。</p>
+
+    <h3>4.2 救场机制</h3>
+    <p>当同一问题连续3位学生未答出时，系统自动切换为救场模式：从历史回答率最高的学生中随机选取（回答率需达到最高回答率的80%以上）。救场模式下若连续3人也未答出，弹出提示建议老师讲解。</p>
+
+    <h3>4.3 状态管理</h3>
+    <p>RollCallService管理6个状态变量：<code>unansweredList</code>（本轮未答出索引）、<code>answeredThisRound</code>（本轮已答出索引）、<code>rescueCallCount</code>（救场调用次数）、<code>rescueFailCount</code>（救场失败次数）、<code>inRescue</code>（救场标志位）。状态转换：普通模式3连败→救场模式→救场3连败→提示讲题。有人答出时全部重置。</p>
+  </div>
+
+  <!-- 设计模式 -->
+  <div class="card">
+    <h2>五、设计模式与架构</h2>
+    <div style="text-align:center;margin:20px 0;">
+
+      <div class="arch-label">—— Model 层 ——</div>
+      <div class="arch-row">
+        <span class="arch-box arch-model">Student<br><small>实体/权重/请假</small></span>
+        <span class="arch-box arch-model">RollCallRecord<br><small>点名记录</small></span>
+      </div>
+
+      <div class="arch-label">—— Util 工具层 ——</div>
+      <div class="arch-row">
+        <span class="arch-box arch-util">WeightedRandom<br><small>select() + selectTop()<br>累积权重法 / 救场选取</small></span>
+      </div>
+
+      <div class="arch-label">—— Service 层 ——</div>
+      <div class="arch-row">
+        <span class="arch-box arch-service">RollCallService<br><small>call() / recordAnswer()<br>6状态变量 / 救场状态机</small></span>
+      </div>
+
+      <div class="arch-label">—— View 层 ——</div>
+      <div class="arch-row">
+        <span class="arch-box arch-view">MainFrame<br><small>JTabbedPane</small></span>
+        <span class="arch-box arch-view">RollCallPanel<br><small>点名交互界面</small></span>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>设计模式</th><th>应用位置</th><th>说明</th></tr>
+      <tr><td>策略模式</td><td>WeightedRandom → RollCallService</td><td>算法策略可替换（普通/救场）</td></tr>
+      <tr><td>MVC架构</td><td>全项目</td><td>Model-View-Service 三层分离</td></tr>
+      <tr><td>DAO模式</td><td>StudentDAO</td><td>数据访问与业务逻辑解耦</td></tr>
+    </table>
+  </div>
+
+  <!-- Git提交记录 -->
+  <div class="card">
+    <h2>六、Git提交记录</h2>
+    <table>
+      <tr><th style="width:5%">#</th><th>提交信息</th></tr>
+      <tr><td>1</td><td>初始化项目结构——添加数据模型类</td></tr>
+      <tr><td>2</td><td>实现加权随机点名算法——基于累积权重法</td></tr>
+      <tr><td>3</td><td>实现核心点名服务——基础点名与记录功能</td></tr>
+      <tr><td>4</td><td>搭建主窗口框架与点名交互界面</td></tr>
+      <tr><td>5</td><td>添加救场机制与继续提问功能</td></tr>
+      <tr><td>6</td><td>完善请假管理功能——添加项目文档</td></tr>
+    </table>
+  </div>
+
+  <!-- 仓库地址 -->
+  <div class="card">
+    <h2>七、项目仓库</h2>
+    <p class="repo-link">核心点名模块：<a href="https://github.com/qluliuliuliu/classroom-rollcall-core" target="_blank">github.com/qluliuliuliu/classroom-rollcall-core</a></p>
+    <p style="margin-top:8px;">完整项目：<a href="https://github.com/qluliuliuliu/classroom-rollcall-system" target="_blank">github.com/qluliuliuliu/classroom-rollcall-system</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>课堂点名系统 · 核心点名模块 · 2026</p>
+</footer>
+
+</body>
+</html>
