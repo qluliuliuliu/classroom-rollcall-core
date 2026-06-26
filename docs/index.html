@@ -44,8 +44,17 @@
     <h2>一、负责任务概述</h2>
     <p>
       本人在项目中担任<strong>组长</strong>，负责<strong>核心点名逻辑与项目架构</strong>。
-      主要任务包括：设计学生与点名记录数据模型、实现加权随机点名算法、开发点名服务（含救场机制与状态管理）、构建主窗口框架与点名交互界面、Git仓库管理与团队协作。
+      主要任务包括：设计学生与点名记录数据模型、实现加权随机点名算法、开发点名服务（含救场机制与状态管理）、构建主窗口框架与点名交互界面、请假排除机制、Git仓库管理与团队协作。
     </p>
+
+    <h3 style="margin-top:20px;color:#3a0ca3;">组长额外职责</h3>
+    <table>
+      <tr><th style="width:5%">#</th><th>职责</th><th>具体内容</th></tr>
+      <tr><td>1</td><td>Git仓库创建与管理</td><td>创建GitHub远程仓库，培训组员使用Git提交代码（clone/commit/push/pull），解决代码合并冲突</td></tr>
+      <tr><td>2</td><td>GitHub Issues任务跟踪</td><td>使用Issues登记项目需求、Bug、分工任务，全程留痕溯源推动进度</td></tr>
+      <tr><td>3</td><td>团队博客搭建</td><td>撰写项目完整描述（简介、技术栈、功能截图、分工表、Git提交记录截图）</td></tr>
+      <tr><td>4</td><td>教师沟通与技术协调</td><td>选题确认、技术难题求助、进度汇报，组织组员解决技术难题</td></tr>
+    </table>
   </div>
 
   <!-- 完成的任务 -->
@@ -80,6 +89,11 @@
       </tr>
       <tr>
         <td>6</td>
+        <td>请假排除机制</td>
+        <td>在Student模型中添加onLeave字段，call()中合并排除列表包含请假学生索引，确保请假学生不会被点到</td>
+      </tr>
+      <tr>
+        <td>7</td>
         <td>Git与团队管理</td>
         <td>GitHub仓库创建、Issues任务跟踪、团队博客搭建、组员Git培训</td>
       </tr>
@@ -89,14 +103,17 @@
   <!-- 文件说明 -->
   <div class="card">
     <h2>三、负责文件清单</h2>
+    <p style="margin-bottom:12px;">共负责<strong>8个文件</strong>（4个独立负责 + 2个定义规范 + 2个需理解接口）</p>
     <table>
-      <tr><th style="width:5%">#</th><th style="width:35%">文件</th><th>说明</th></tr>
-      <tr><td>1</td><td><code>model/Student.java</code></td><td>学生实体模型（序列化、权重计算、请假状态）</td></tr>
-      <tr><td>2</td><td><code>model/RollCallRecord.java</code></td><td>点名记录模型（时间格式化）</td></tr>
-      <tr><td>3</td><td><code>service/RollCallService.java</code></td><td>核心点名服务：加权选择、救场机制、状态管理、继续提问</td></tr>
-      <tr><td>4</td><td><code>util/WeightedRandom.java</code></td><td>加权随机算法：累积权重法select()、救场selectTop()</td></tr>
-      <tr><td>5</td><td><code>view/MainFrame.java</code></td><td>主窗口：JTabbedPane组织功能面板</td></tr>
-      <tr><td>6</td><td><code>view/RollCallPanel.java</code></td><td>点名交互界面：完整交互流程与状态更新</td></tr>
+      <tr><th style="width:5%">#</th><th style="width:35%">文件</th><th style="width:15%">类型</th><th>说明</th></tr>
+      <tr><td>1</td><td><code>model/Student.java</code></td><td><strong>定义规范</strong></td><td>学生实体模型（序列化、权重公式、请假状态）</td></tr>
+      <tr><td>2</td><td><code>model/RollCallRecord.java</code></td><td><strong>定义规范</strong></td><td>点名记录模型（时间格式化）</td></tr>
+      <tr><td>3</td><td><code>service/RollCallService.java</code></td><td><strong>独立负责</strong></td><td>核心点名服务：加权选择、救场机制、6状态变量管理、继续提问</td></tr>
+      <tr><td>4</td><td><code>util/WeightedRandom.java</code></td><td><strong>独立负责</strong></td><td>加权随机算法：累积权重法select()、救场selectTop()</td></tr>
+      <tr><td>5</td><td><code>view/MainFrame.java</code></td><td><strong>独立负责</strong></td><td>主窗口：JTabbedPane组织三面板</td></tr>
+      <tr><td>6</td><td><code>view/RollCallPanel.java</code></td><td><strong>独立负责</strong></td><td>点名交互界面：完整交互流程、继续提问弹窗、题目太难提示</td></tr>
+      <tr><td>7</td><td><code>dao/StudentDAO.java</code></td><td><strong>需理解接口</strong></td><td>数据持久层：ObjectStream读写、异常处理策略</td></tr>
+      <tr><td>8</td><td><code>util/ExcelUtil.java</code></td><td><strong>需理解接口</strong></td><td>Excel读写工具：POI导入导出、Cell类型判断</td></tr>
     </table>
   </div>
 
@@ -133,6 +150,11 @@
       <div class="arch-label">—— Service 层 ——</div>
       <div class="arch-row">
         <span class="arch-box arch-service">RollCallService<br><small>call() / recordAnswer()<br>6状态变量 / 救场状态机</small></span>
+      </div>
+
+      <div class="arch-label">—— DAO 层（需理解接口） ——</div>
+      <div class="arch-row">
+        <span class="arch-box arch-service">StudentDAO<br><small>load/save序列化持久化</small></span>
       </div>
 
       <div class="arch-label">—— View 层 ——</div>
