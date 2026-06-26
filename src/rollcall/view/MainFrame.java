@@ -4,6 +4,10 @@ import rollcall.service.RollCallService;
 
 import javax.swing.*;
 
+/**
+ * 主窗口 —— MVC架构
+ * 使用JTabbedPane组织功能面板
+ */
 public class MainFrame extends JFrame {
 
     private final RollCallService rollCallService = new RollCallService();
