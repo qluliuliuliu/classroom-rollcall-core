@@ -39,9 +39,56 @@
 
 <div class="container">
 
+  <!-- 功能架构图 -->
+  <div class="card">
+    <h2>一、功能架构图</h2>
+    <p style="color:#999;font-size:0.9em;margin-bottom:15px;">黄底 = 本人负责模块</p>
+    <style>
+      .func-diagram { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin:20px 0; }
+      .func-module { border:2px solid #ddd; border-radius:10px; overflow:hidden; min-width:200px; flex:1; max-width:300px; }
+      .func-module h3 { padding:12px 15px; margin:0; font-size:1em; text-align:center; }
+      .func-module ul { list-style:none; padding:12px 15px; margin:0; font-size:0.85em; color:#555; }
+      .func-module li { padding:4px 0; border-bottom:1px solid #f0f0f0; }
+      .func-module li:last-child { border-bottom:none; }
+      .func-leader { border-color:#f9ab00; }
+      .func-leader h3 { background:#fef3c7; }
+    </style>
+    <div class="func-diagram">
+      <div class="func-module">
+        <h3 style="background:#e8f0fe;color:#1a56db;">学生管理</h3>
+        <ul>
+          <li>单个添加学生</li>
+          <li>批量添加学生</li>
+          <li>Excel导入 / 导出</li>
+          <li>搜索过滤</li>
+          <li>请假 / 销假管理</li>
+        </ul>
+      </div>
+      <div class="func-module func-leader">
+        <h3>🎯 课堂点名（本人负责）</h3>
+        <ul>
+          <li>加权随机点名算法</li>
+          <li>救场机制</li>
+          <li>题目太难提示</li>
+          <li>继续提问流程</li>
+          <li>请假自动排除</li>
+          <li>课程设置 / 重置本轮</li>
+        </ul>
+      </div>
+      <div class="func-module">
+        <h3 style="background:#e6f4ea;color:#1e4620;">数据统计</h3>
+        <ul>
+          <li>汇总卡片</li>
+          <li>学生排名表</li>
+          <li>点名频次分布</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <!-- 任务简介 -->
   <div class="card">
-    <h2>一、负责任务概述</h2>
+    <h2>二、负责任务概述</h2>
     <p>
       本人在项目中担任<strong>组长</strong>，负责<strong>核心点名逻辑与项目架构</strong>。
       主要任务包括：设计学生与点名记录数据模型、实现加权随机点名算法、开发点名服务（含救场机制与状态管理）、构建主窗口框架与点名交互界面、请假排除机制、Git仓库管理与团队协作。
@@ -51,7 +98,7 @@
 
   <!-- 完成的任务 -->
   <div class="card">
-    <h2>二、完成的任务与功能</h2>
+    <h2>三、完成的任务与功能</h2>
     <table>
       <tr><th style="width:5%">#</th><th style="width:30%">功能</th><th>描述</th></tr>
       <tr>
@@ -94,7 +141,7 @@
 
   <!-- 文件说明 -->
   <div class="card">
-    <h2>三、负责文件清单</h2>
+    <h2>四、负责文件清单</h2>
     <p style="margin-bottom:12px;">共负责<strong>8个文件</strong>（4个独立负责 + 2个定义规范 + 2个需理解接口）</p>
     <table>
       <tr><th style="width:5%">#</th><th style="width:35%">文件</th><th style="width:15%">类型</th><th>说明</th></tr>
@@ -111,7 +158,7 @@
 
   <!-- 技术详解 -->
   <div class="card">
-    <h2>四、核心技术详解</h2>
+    <h2>五、核心技术详解</h2>
 
     <h3>4.1 加权随机算法</h3>
     <p>采用<strong>累积权重法</strong>：计算所有学生权重之和 → 生成[0, 总和)随机数 → 从第一个学生开始累加权重，首次超过随机数时选中。权重公式：<code>100 / (被点名次数 + 1)</code>，确保被点名次数越少的学生被选中概率越高。</p>
@@ -125,7 +172,7 @@
 
   <!-- 设计模式 -->
   <div class="card">
-    <h2>五、设计模式与架构</h2>
+    <h2>六、设计模式与架构</h2>
     <div style="text-align:center;margin:20px 0;">
 
       <div class="arch-label">—— Model 层 ——</div>
@@ -166,13 +213,13 @@
 
   <!-- Git提交记录 -->
   <div class="card">
-    <h2>六、Git提交记录</h2>
+    <h2>七、Git提交记录</h2>
     <img src="git-commits.png" alt="Git提交记录" style="width:100%;max-width:800px;border:1px solid #e0e4ea;border-radius:8px;">
   </div>
 
   <!-- 仓库地址 -->
   <div class="card">
-    <h2>七、项目仓库</h2>
+    <h2>八、项目仓库</h2>
     <p class="repo-link">核心点名模块：<a href="https://github.com/qluliuliuliu/classroom-rollcall-core" target="_blank">github.com/qluliuliuliu/classroom-rollcall-core</a></p>
     <p style="margin-top:8px;">完整项目：<a href="https://github.com/qluliuliuliu/classroom-rollcall-system" target="_blank">github.com/qluliuliuliu/classroom-rollcall-system</a></p>
   </div>
